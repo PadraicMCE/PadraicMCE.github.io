@@ -54,11 +54,14 @@ if (navigator.mediaDevices.getUserMedia)
 				const clipLabel = document.createElement('p');
 				const audio = document.createElement('audio');
 				const deleteButton = document.createElement('button');
+				const downloadButton = document.createElement('button');
 				
 				clipContainer.classList.add('clip');
 				audio.setAttribute('controls', '');
 				deleteButton.textContent = 'Delete';
 				deleteButton.className = 'delete';
+				downloadButton.textContent = 'Download';
+				downloadButton.className = 'download';
 				
 				if(clipName == null)
 					{
@@ -72,6 +75,7 @@ if (navigator.mediaDevices.getUserMedia)
 				clipContainer.appendChild(audio);
 				clipContainer.appendChild(clipLabel);
 				clipContainer.appendChild(deleteButton);
+				clipContainer.appendChild(downloadButton);
 				soundClips.appendChild(clipContainer);
 				
 				audio.controls = true;
