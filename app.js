@@ -60,7 +60,7 @@ if (navigator.mediaDevices.getUserMedia)
 				deleteButton.textContent = 'Delete';
 				deleteButton.className = 'delete';
 				
-				if(clipName == NULL)
+				if(clipName == null)
 					{
 						clipLabel.textContent = 'Unnamed clip';
 					}
