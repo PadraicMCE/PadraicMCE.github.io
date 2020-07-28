@@ -47,8 +47,8 @@ if (navigator.mediaDevices.getUserMedia)
 			mediaRecorder.onstop = function(e)
 			{
 				console.log("data available after MediaRecorder.stop() called");
-				var d = new Date();
-				const clipName = prompt('Enter a name for your sound clip?',d);
+				//var d = new Date();
+				const clipName = prompt('Enter a name for your sound clip?','Unnamed clip');
 				const clipContainer = document.createElement('article');
 				const clipLabel = document.createElement('p');
 				const audio = document.createElement('audio');
@@ -63,13 +63,13 @@ if (navigator.mediaDevices.getUserMedia)
 				downloadButton.textContent = 'Download';
 				downloadButton.className = 'download';
 				
-				if(clipName == null)
+				if(clipName === null)
 					{
 						clipLabel.textContent = 'Unnamed clip';
 					}
 				else
 					{
-						clipLabel.textContent = d;
+						clipLabel.textContent = clipName;
 					}
 				
 				clipContainer.appendChild(audio);
@@ -84,15 +84,19 @@ if (navigator.mediaDevices.getUserMedia)
 				const audioURL = window.URL.createObjectURL(blob);
 				audio.src = audioURL;
 				console.log("recorder stopped");
+				//downloadButton.setAttribute('hef',audioURL);
+				//downloadButton.setAttribute('download',clipLabel.textContent);
 				
 				deleteButton.onClick = function(e)
 				{
+					console.log("Delete button pressed");
 					let evtTgt = e.target;
 					evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
 				}
 				
 				downloadButton.onClick = function(e)
 				{
+					console.log("Download button pressed");
 					downloadButton.setAttribute('hef',audioURL);
 					downloadButton.setAttribute('id',"downloadLink");
 					downloadButton.setAttribute('download',clipLabel.textContent);
@@ -100,6 +104,7 @@ if (navigator.mediaDevices.getUserMedia)
 				
 				clipLabel.onClick = function() 
 				{
+					console.log("Clip name clicked");
 					const exisingName = clipLabel.textContent;
 					const newClipName = prompt('Enter a new name for sound clip?');
 					if (newClipName === null)
