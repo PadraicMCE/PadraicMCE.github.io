@@ -91,7 +91,7 @@ if (navigator.mediaDevices.getUserMedia)
 				downloadButton.onclick = function(e)
 				{
 					console.log("Download button pressed");
-					download(clipLabel.textContent,audioURL);
+					download(clipLabel.textContent+".ogg",audioURL);
 				}
 				
 				clipLabel.onclick = function() 
