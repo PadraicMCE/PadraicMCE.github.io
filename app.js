@@ -47,8 +47,8 @@ if (navigator.mediaDevices.getUserMedia)
 			mediaRecorder.onstop = function(e)
 			{
 				console.log("data available after MediaRecorder.stop() called");
-				//var d = new Date();
-				const clipName = prompt('Enter a name for your sound clip?','Unnamed clip');
+				var d = new Date();
+				const clipName = prompt('Enter a name for your sound clip?',d);
 				const clipContainer = document.createElement('article');
 				const clipLabel = document.createElement('p');
 				const audio = document.createElement('audio');
@@ -58,19 +58,10 @@ if (navigator.mediaDevices.getUserMedia)
 				
 				clipContainer.classList.add('clip');
 				audio.setAttribute('controls', '');
-				deleteButton.textContent = 'Delete';
-				deleteButton.className = 'delete';
-				downloadButton.textContent = 'Download';
-				downloadButton.className = 'download';
+				deleteButton.innerHTML = "Delete";
+				downloadButton.innerHTML = "Download";
+				clipLabel.innerHTML = clipName;
 				
-				if(clipName === null)
-					{
-						clipLabel.textContent = 'Unnamed clip';
-					}
-				else
-					{
-						clipLabel.textContent = clipName;
-					}
 				
 				clipContainer.appendChild(audio);
 				clipContainer.appendChild(clipLabel);
@@ -84,25 +75,26 @@ if (navigator.mediaDevices.getUserMedia)
 				const audioURL = window.URL.createObjectURL(blob);
 				audio.src = audioURL;
 				console.log("recorder stopped");
+				var element = document.createElement('a');
+				element.setAttribute('href',audioURL);
+				element.setAttribute('download',d+".txt");
 				//downloadButton.setAttribute('hef',audioURL);
 				//downloadButton.setAttribute('download',clipLabel.textContent);
 				
-				deleteButton.onClick = function(e)
+				deleteButton.onclick = function(e)
 				{
 					console.log("Delete button pressed");
 					let evtTgt = e.target;
 					evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
 				}
 				
-				downloadButton.onClick = function(e)
+				downloadButton.onclick = function(e)
 				{
 					console.log("Download button pressed");
-					downloadButton.setAttribute('hef',audioURL);
-					downloadButton.setAttribute('id',"downloadLink");
-					downloadButton.setAttribute('download',clipLabel.textContent);
+					download(clipLabel.textContent,audioURL);
 				}
 				
-				clipLabel.onClick = function() 
+				clipLabel.onclick = function() 
 				{
 					console.log("Clip name clicked");
 					const exisingName = clipLabel.textContent;
@@ -128,6 +120,15 @@ if (navigator.mediaDevices.getUserMedia)
 		}
 		
 		navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+		
+		function download(filename, data)
+		{
+			console.log("Download function started");
+			var element = document.createElement('a');
+			element.setAttribute('href',data);
+			element.setAttribute('download',filename);
+			element.click();
+		}
 	}
 	else{
 		console.log('getUserMedia not supported on your browser');
