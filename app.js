@@ -91,7 +91,7 @@ if (navigator.mediaDevices.getUserMedia)
 				{
 					const exisingName = clipLabel.textContent;
 					const newClipName = prompt('Enter a new name for sound clip?');
-					if (newClipName === NULL)
+					if (newClipName === null)
 					{
 						clipLabel.textContent = existingName;
 					}else{
