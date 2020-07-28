@@ -4,7 +4,6 @@
 const record = document.querySelector('.record');
 const stop = document.querySelector('.stop');
 const soundClips = document.querySelector('.sound-clips');
-const canvas = document.querySelector('.visualizer');
 const mainSection = document.querySelector('.main-controls');
 
 // disable stop button while not recording
@@ -56,6 +55,7 @@ if (navigator.mediaDevices.getUserMedia)
 				const deleteButton = document.createElement('button');
 				const downloadButton = document.createElement('button');
 				
+				
 				clipContainer.classList.add('clip');
 				audio.setAttribute('controls', '');
 				deleteButton.textContent = 'Delete';
@@ -69,7 +69,7 @@ if (navigator.mediaDevices.getUserMedia)
 					}
 				else
 					{
-						clipLabel.textContent = 'clipName';
+						clipLabel.textContent = d;
 					}
 				
 				clipContainer.appendChild(audio);
@@ -89,6 +89,13 @@ if (navigator.mediaDevices.getUserMedia)
 				{
 					let evtTgt = e.target;
 					evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
+				}
+				
+				downloadButton.onClick = function(e)
+				{
+					downloadButton.setAttribute('hef',audioURL);
+					downloadButton.setAttribute('id',"downloadLink");
+					downloadButton.setAttribute('download',clipLabel.textContent);
 				}
 				
 				clipLabel.onClick = function() 
